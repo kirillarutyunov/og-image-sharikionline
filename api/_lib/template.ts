@@ -10,8 +10,8 @@ import { ParsedRequest } from './types';
 const rglr = readFileSync(`${__dirname}/../_fonts/Inter-Regular.woff2`).toString('base64');
 const bold = readFileSync(`${__dirname}/../_fonts/Inter-Bold.woff2`).toString('base64');
 const mono = readFileSync(`${__dirname}/../_fonts/Vera-Mono.woff2`).toString('base64');
-const ptreglr = readFileSync(`${__dirname}/../_fonts/PTSans-Regular.ttf`).toString('base64');
-const ptbold = readFileSync(`${__dirname}/../_fonts/PTSans-Bold.ttf`).toString('base64');
+const ptreglr = readFileSync(`${__dirname}/../_fonts/PTSans-Regular.woff2`).toString('base64');
+const ptbold = readFileSync(`${__dirname}/../_fonts/PTSans-Bold.woff2`).toString('base64');
 
 function getCss() {
     return `
@@ -33,14 +33,14 @@ function getCss() {
         font-family: 'PT Sans';
         font-style:  normal;
         font-weight: normal;
-        src: url(data:font/ttf;charset=utf-8;base64,${ptreglr}) format('ttf');
+        src: url(data:font/woff2;charset=utf-8;base64,${ptreglr}) format('woff2');
     }
 
     @font-face {
         font-family: 'PT Sans';
         font-style:  normal;
         font-weight: bold;
-        src: url(data:font/ttf;charset=utf-8;base64,${ptbold}) format('ttf');
+        src: url(data:font/woff2;charset=utf-8;base64,${ptbold}) format('woff2');
     }
 
     @font-face {
