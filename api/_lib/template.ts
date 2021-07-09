@@ -33,14 +33,14 @@ function getCss() {
         font-family: 'PT Sans';
         font-style:  normal;
         font-weight: normal;
-        src: url(data:font/woff2;charset=utf-8;base64,${ptreglr}) format('ttf');
+        src: url(data:font/ttf;charset=utf-8;base64,${ptreglr}) format('ttf');
     }
 
     @font-face {
         font-family: 'PT Sans';
         font-style:  normal;
         font-weight: bold;
-        src: url(data:font/woff2;charset=utf-8;base64,${ptbold}) format('ttf');
+        src: url(data:font/ttf;charset=utf-8;base64,${ptbold}) format('ttf');
     }
 
     @font-face {
