@@ -1,26 +1,19 @@
 
 import { readFileSync } from 'fs';
-import marked from 'marked';
+// import marked from 'marked';
 import { sanitizeHtml } from './sanitizer';
 import { ParsedRequest } from './types';
-const twemoji = require('twemoji');
-const twOptions = { folder: 'svg', ext: '.svg' };
-const emojify = (text: string) => twemoji.parse(text, twOptions);
+// const twemoji = require('twemoji');
+// const twOptions = { folder: 'svg', ext: '.svg' };
+// const emojify = (text: string) => twemoji.parse(text, twOptions);
 
 const rglr = readFileSync(`${__dirname}/../_fonts/Inter-Regular.woff2`).toString('base64');
 const bold = readFileSync(`${__dirname}/../_fonts/Inter-Bold.woff2`).toString('base64');
 const mono = readFileSync(`${__dirname}/../_fonts/Vera-Mono.woff2`).toString('base64');
+const ptreglr = readFileSync(`${__dirname}/../_fonts/PTSans-Regular.ttf`).toString('base64');
+const ptbold = readFileSync(`${__dirname}/../_fonts/PTSans-Bold.ttf`).toString('base64');
 
-function getCss(theme: string, fontSize: string) {
-    let background = 'white';
-    let foreground = 'black';
-    let radial = 'lightgray';
-
-    if (theme === 'dark') {
-        background = 'black';
-        foreground = 'white';
-        radial = 'dimgray';
-    }
+function getCss() {
     return `
     @font-face {
         font-family: 'Inter';
@@ -35,6 +28,20 @@ function getCss(theme: string, fontSize: string) {
         font-weight: bold;
         src: url(data:font/woff2;charset=utf-8;base64,${bold}) format('woff2');
     }
+    
+    @font-face {
+        font-family: 'PT Sans';
+        font-style:  normal;
+        font-weight: normal;
+        src: url(data:font/woff2;charset=utf-8;base64,${ptreglr}) format('ttf');
+    }
+
+    @font-face {
+        font-family: 'PT Sans';
+        font-style:  normal;
+        font-weight: bold;
+        src: url(data:font/woff2;charset=utf-8;base64,${ptbold}) format('ttf');
+    }
 
     @font-face {
         font-family: 'Vera';
@@ -44,14 +51,97 @@ function getCss(theme: string, fontSize: string) {
       }
 
     body {
-        background: ${background};
-        background-image: radial-gradient(circle at 25px 25px, ${radial} 2%, transparent 0%), radial-gradient(circle at 75px 75px, ${radial} 2%, transparent 0%);
-        background-size: 100px 100px;
         height: 100vh;
         display: flex;
-        text-align: center;
         align-items: center;
         justify-content: center;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .footer {
+        margin-top: 30px;
+        position: relative;
+        z-index: 8;
+    }
+    
+    .footer__logo {
+        padding-top: 30px;
+        width: 40%;
+        border-top: 6px solid #1316ff;
+    }
+    
+    .footer__logo img {
+        max-width: 60%;
+        max-height: 120px;
+    }
+
+    .post-data {
+        margin-bottom: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .post-data__main {
+        width: 70%;
+    }
+       
+    .post-data__flags {
+        margin-bottom: 30px;
+    }
+    
+    .post-data__flags img {
+        width: 120px;
+    }
+    
+    .post-data__photo {
+        width: 35%;
+        flex: 0 0 35%;
+        text-align: right;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .wrapper {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        padding: 0;
+    }
+    
+    .country-bg {
+        position: absolute;
+        width: 45%;
+        height: 100%;
+        top: 0;
+        right: 0;
+        z-index: 1;
+        bottom: 0;
+        background-size: cover;
+    }
+    
+    .country-bg:after{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-color: transparent #fff transparent #fff;
+        border-width: 0 0 100vh 30vh;
+    }
+    
+    .post-data__photo img {
+        width: 640px;
+        height: 460px;
+        border-radius: 15px;
+        object-fit: cover;
     }
 
     code {
@@ -95,45 +185,55 @@ function getCss(theme: string, fontSize: string) {
     }
     
     .heading {
-        font-family: 'Inter', sans-serif;
-        font-size: ${sanitizeHtml(fontSize)};
+        font-family: 'PT Sans', sans-serif;
+        font-size: 74px;
         font-style: normal;
-        color: ${foreground};
-        line-height: 1.8;
+        font-weight: bold;
+        color: #333;
+        line-height: 1.2;
     }`;
 }
 
 export function getHtml(parsedReq: ParsedRequest) {
-    const { text, theme, md, fontSize, images, widths, heights } = parsedReq;
+    const { countryFlag, header, otherCountryFlag, image } = parsedReq;
     return `<!DOCTYPE html>
 <html>
     <meta charset="utf-8">
     <title>Generated Image</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        ${getCss(theme, fontSize)}
+        ${getCss()}
     </style>
     <body>
-        <div>
+        <div class="wrapper">
             <div class="spacer">
-            <div class="logo-wrapper">
-                ${images.map((img, i) =>
-                    getPlusSign(i) + getImage(img, widths[i], heights[i])
-                ).join('')}
+                <div class="card">
+                    <div class="post-data">
+                        <div class="post-data__main">
+                            <div class="post-data__flags">
+                                <div class="post-data-flags__base">
+                                    <img src="${sanitizeHtml(countryFlag)}" alt="">
+                                </div>
+                                ${getOtherCountryFlag(otherCountryFlag)}
+                            </div>
+                            <div class="post-data__title heading">${sanitizeHtml(header)}</div>
+                        </div>
+                        <!-- <div class="post-data__photo">${getImage(image)}</div> -->
+                    </div>
+                    <div class="footer">
+                        <div class="footer__logo"><img src="https://covidcrossborders.com/wp-content/themes/covidcrossborders/assets/images/covidcrossborders.com-logo.png" alt=""></div>
+                    </div>
+                </div>
             </div>
-            <div class="spacer">
-            <div class="heading">${emojify(
-                md ? marked(text) : sanitizeHtml(text)
-            )}
-            </div>
+            <div class="country-bg" style="background-image: url('${sanitizeHtml(image)}')"></div>
         </div>
     </body>
 </html>`;
 }
 
-function getImage(src: string, width ='auto', height = '225') {
+function getImage(src: string, width = 'auto', height = '225') {
     return `<img
-        class="logo"
+        class="post-image"
         alt="Generated Image"
         src="${sanitizeHtml(src)}"
         width="${sanitizeHtml(width)}"
@@ -141,6 +241,12 @@ function getImage(src: string, width ='auto', height = '225') {
     />`
 }
 
-function getPlusSign(i: number) {
-    return i === 0 ? '' : '<div class="plus">+</div>';
+function getOtherCountryFlag(otherCountryFlag: string|null = null) {
+    if(otherCountryFlag === null || otherCountryFlag == '') {
+        return ''
+    }
+
+    return `<div class="post-data-flags__other-country">
+        <img src="${sanitizeHtml(otherCountryFlag)}" alt="Generated Image">
+    </div>`
 }
