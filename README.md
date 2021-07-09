@@ -3,7 +3,7 @@ Description
 
 This repo is a fork of original `Open Graph Image as a Service` repository made for [covidcrossborders.com](https://covidcrossborders.com) website.
 
-![Example of covidcrossborders-og-image](https://github.com/[kirillarutyunov]/[covidcrossborders-og-image]/blob/[main]/example/covidcrossborders.com-og-image-example.png?raw=true)
+![Example of covidcrossborders-og-image](https://github.com/kirillarutyunov/og-image/blob/main/example/covidcrossborders.com-og-image-example.png?raw=true)
 An example of current repository og-image service
 
 ---
