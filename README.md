@@ -1,3 +1,13 @@
+Description
+===
+
+This repo is a fork of original `Open Graph Image as a Service` repository made for [covidcrossborders.com](https://covidcrossborders.com) website.
+
+![Example of covidcrossborders-og-image](https://github.com/[kirillarutyunov]/[covidcrossborders-og-image]/blob/[main]/example/covidcrossborders.com-og-image-example.png?raw=true)
+An example of current repository og-image service
+
+---
+
 <a href="https://vercel.com/new/project?template=vercel/og-image"><img width="128" src="https://vercel.com/button" align="right"></a>
 
 # [Open Graph Image as a Service](https://og-image.vercel.app)
