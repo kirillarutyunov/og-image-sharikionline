@@ -143,6 +143,16 @@ function getCss() {
         border-radius: 15px;
         object-fit: cover;
     }
+    
+    .post-data__flags {
+        display: flex;
+        align-items: center;
+    }
+    
+    .post-data-flags__separator {
+        font-size: 80px;
+        margin: -5px 15px 0;
+    }
 
     code {
         color: #D400FF;
@@ -246,7 +256,8 @@ function getOtherCountryFlag(otherCountryFlag: string|null = null) {
         return ''
     }
 
-    return `<div class="post-data-flags__other-country">
+    return `<div class="post-data-flags__separator">→</div>
+    <div class="post-data-flags__other-country">
         <img src="${sanitizeHtml(otherCountryFlag)}" alt="Generated Image">
     </div>`
 }
