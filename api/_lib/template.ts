@@ -12,6 +12,7 @@ const bold = readFileSync(`${__dirname}/../_fonts/Inter-Bold.woff2`).toString('b
 const mono = readFileSync(`${__dirname}/../_fonts/Vera-Mono.woff2`).toString('base64');
 const ptreglr = readFileSync(`${__dirname}/../_fonts/PTSans-Regular.woff2`).toString('base64');
 const ptbold = readFileSync(`${__dirname}/../_fonts/PTSans-Bold.woff2`).toString('base64');
+const arrowImg = readFileSync(`${__dirname}/../images/right-arrow.png`).toString('base64');
 
 function getCss() {
     return `
@@ -151,7 +152,11 @@ function getCss() {
     
     .post-data-flags__separator {
         font-size: 80px;
-        margin: -5px 15px 0;
+        margin: 20px 15px 0;
+    }
+    
+    .post-data-flags__separator img {
+        width: 80px;
     }
 
     code {
@@ -256,8 +261,12 @@ function getOtherCountryFlag(otherCountryFlag: string|null = null) {
         return ''
     }
 
-    return `<div class="post-data-flags__separator" style="font-family: Arial, sans-serif;">&rarr;</div>
+    return `<div class="post-data-flags__separator">${getArrowImg()}</div>
     <div class="post-data-flags__other-country">
         <img src="${sanitizeHtml(otherCountryFlag)}" alt="Generated Image">
     </div>`
+}
+
+function getArrowImg() {
+    return `<img src="data:image/png;base64,${arrowImg}" alt="->">`
 }
