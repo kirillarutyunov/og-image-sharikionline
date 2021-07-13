@@ -256,7 +256,7 @@ function getOtherCountryFlag(otherCountryFlag: string|null = null) {
         return ''
     }
 
-    return `<div class="post-data-flags__separator">→</div>
+    return `<div class="post-data-flags__separator" style="font-family: Arial, sans-serif;">&rarr;</div>
     <div class="post-data-flags__other-country">
         <img src="${sanitizeHtml(otherCountryFlag)}" alt="Generated Image">
     </div>`
