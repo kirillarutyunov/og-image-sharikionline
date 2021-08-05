@@ -6,6 +6,8 @@ This repo is a fork of original `Open Graph Image as a Service` repository made 
 ![Example of slavclub-ru-og-image](https://github.com/kirillarutyunov/og-image-sclub/blob/master/example/slavclub.ru-og-image-example.png?raw=true)
 An example of current repository og-image service
 
+Small Test
+
 ---
 
 <a href="https://vercel.com/new/project?template=vercel/og-image"><img width="128" src="https://vercel.com/button" align="right"></a>
