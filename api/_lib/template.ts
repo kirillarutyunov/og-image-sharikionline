@@ -64,6 +64,10 @@ function getCss() {
         font-weight: medium;
         color: #1C3E40;
     }
+    
+    .card {
+        width: 100%;
+    }
 
     .post-data {
         margin-bottom: 120px;
@@ -72,6 +76,7 @@ function getCss() {
         justify-content: space-between;
         position: relative;
         z-index: 10;
+        width: 100%;
     }
     
     .post-data__main {
@@ -88,8 +93,8 @@ function getCss() {
         text-align: right;
         display: flex;
         align-items: center;
-        width: 100%;
         justify-content: flex-end;
+        height: 470px;
     }
     
     .wrapper {
@@ -104,17 +109,6 @@ function getCss() {
         height: 470px;
         border-radius: 15px;
         object-fit: cover;
-    }
-
-    code {
-        color: #D400FF;
-        font-family: 'Vera';
-        white-space: pre-wrap;
-        letter-spacing: -5px;
-    }
-
-    code:before, code:after {
-        content: '\`';
     }
 
     .logo-wrapper {
@@ -137,6 +131,7 @@ function getCss() {
 
     .spacer {
         margin: 150px;
+        width: 100%;
     }
 
     .emoji {
@@ -184,7 +179,7 @@ export function getHtml(parsedReq: ParsedRequest) {
                         <div class="post-data__title heading">${emojify(sanitizeHtml(header))}</div>
                     </div>
                     <div class="post-data__photo">${
-                        image ? `${getImage(image)}` : ''
+                        image ? `${getImage(image)}` : '&nbsp;'
                     }</div>
                 </div>
                 <div class="footer">
