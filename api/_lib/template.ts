@@ -3,53 +3,36 @@ import { readFileSync } from 'fs';
 // import marked from 'marked';
 import { sanitizeHtml } from './sanitizer';
 import { ParsedRequest } from './types';
-// const twemoji = require('twemoji');
-// const twOptions = { folder: 'svg', ext: '.svg' };
-// const emojify = (text: string) => twemoji.parse(text, twOptions);
+const twemoji = require('twemoji');
+const twOptions = { folder: 'svg', ext: '.svg' };
+const emojify = (text: string) => twemoji.parse(text, twOptions);
 
-const rglr = readFileSync(`${__dirname}/../_fonts/Inter-Regular.woff2`).toString('base64');
-const bold = readFileSync(`${__dirname}/../_fonts/Inter-Bold.woff2`).toString('base64');
-const mono = readFileSync(`${__dirname}/../_fonts/Vera-Mono.woff2`).toString('base64');
-const ptreglr = readFileSync(`${__dirname}/../_fonts/PTSans-Regular.woff2`).toString('base64');
-const ptbold = readFileSync(`${__dirname}/../_fonts/PTSans-Bold.woff2`).toString('base64');
-const arrowImg = readFileSync(`${__dirname}/../images/right-arrow.png`).toString('base64');
+const robotoSlabRegular = readFileSync(`${__dirname}/../_fonts/RobotoSlab-Regular.woff2`).toString('base64');
+const robotoSlabBold = readFileSync(`${__dirname}/../_fonts/RobotoSlab-Bold.woff2`).toString('base64');
+const robotoSlabMedium = readFileSync(`${__dirname}/../_fonts/RobotoSlab-Medium.woff2`).toString('base64');
 
 function getCss() {
     return `
     @font-face {
-        font-family: 'Inter';
+        font-family: 'Roboto Slab';
         font-style:  normal;
         font-weight: normal;
-        src: url(data:font/woff2;charset=utf-8;base64,${rglr}) format('woff2');
+        src: url(data:font/woff2;charset=utf-8;base64,${robotoSlabRegular}) format('woff2');
     }
 
     @font-face {
-        font-family: 'Inter';
+        font-family: 'Roboto Slab';
         font-style:  normal;
         font-weight: bold;
-        src: url(data:font/woff2;charset=utf-8;base64,${bold}) format('woff2');
+        src: url(data:font/woff2;charset=utf-8;base64,${robotoSlabBold}) format('woff2');
     }
     
     @font-face {
-        font-family: 'PT Sans';
+        font-family: 'Roboto Slab';
         font-style:  normal;
-        font-weight: normal;
-        src: url(data:font/woff2;charset=utf-8;base64,${ptreglr}) format('woff2');
+        font-weight: medium;
+        src: url(data:font/woff2;charset=utf-8;base64,${robotoSlabMedium}) format('woff2');
     }
-
-    @font-face {
-        font-family: 'PT Sans';
-        font-style:  normal;
-        font-weight: bold;
-        src: url(data:font/woff2;charset=utf-8;base64,${ptbold}) format('woff2');
-    }
-
-    @font-face {
-        font-family: 'Vera';
-        font-style: normal;
-        font-weight: normal;
-        src: url(data:font/woff2;charset=utf-8;base64,${mono})  format("woff2");
-      }
 
     body {
         height: 100vh;
@@ -58,23 +41,28 @@ function getCss() {
         justify-content: center;
         padding: 0;
         margin: 0;
+        background: #FFECE6;
     }
     
     .footer {
         margin-top: 30px;
         position: relative;
         z-index: 8;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     
-    .footer__logo {
-        padding-top: 30px;
-        width: 40%;
-        border-top: 6px solid #1316ff;
+    .footer__logo,
+    .footer__label {
+        text-align: center;
     }
     
-    .footer__logo img {
-        max-width: 60%;
-        max-height: 120px;
+    .footer__label {
+        font-size: 50px;
+        font-family: 'Roboto Slab';
+        font-weight: medium;
+        color: #1C3E40;
     }
 
     .post-data {
@@ -87,15 +75,11 @@ function getCss() {
     }
     
     .post-data__main {
-        width: 70%;
-    }
-       
-    .post-data__flags {
-        margin-bottom: 30px;
+        width: 65%;
     }
     
-    .post-data__flags img {
-        width: 120px;
+    .post-data__title {
+        padding-right: 30px;
     }
     
     .post-data__photo {
@@ -115,48 +99,11 @@ function getCss() {
         padding: 0;
     }
     
-    .country-bg {
-        position: absolute;
-        width: 45%;
-        height: 100%;
-        top: 0;
-        right: 0;
-        z-index: 1;
-        bottom: 0;
-        background-size: cover;
-    }
-    
-    .country-bg:after{
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-color: transparent #fff transparent #fff;
-        border-width: 0 0 100vh 30vh;
-    }
-    
     .post-data__photo img {
-        width: 640px;
-        height: 460px;
+        width: 580px;
+        height: 470px;
         border-radius: 15px;
         object-fit: cover;
-    }
-    
-    .post-data__flags {
-        display: flex;
-        align-items: center;
-    }
-    
-    .post-data-flags__separator {
-        font-size: 80px;
-        margin: 20px 15px 0;
-    }
-    
-    .post-data-flags__separator img {
-        width: 80px;
     }
 
     code {
@@ -200,17 +147,26 @@ function getCss() {
     }
     
     .heading {
-        font-family: 'PT Sans', sans-serif;
-        font-size: 74px;
-        font-style: normal;
+        color: #EA6F3A;
+        font-family: 'Roboto Slab';
         font-weight: bold;
-        color: #333;
+        font-size: 90px;
         line-height: 1.2;
-    }`;
+    }
+    
+    .top-border {
+        width: 100%;
+        height: 30px;
+        background: #C75727;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    `;
 }
 
 export function getHtml(parsedReq: ParsedRequest) {
-    const { countryFlag, header, otherCountryFlag, image } = parsedReq;
+    const { header, image } = parsedReq;
     return `<!DOCTYPE html>
 <html>
     <meta charset="utf-8">
@@ -220,27 +176,22 @@ export function getHtml(parsedReq: ParsedRequest) {
         ${getCss()}
     </style>
     <body>
-        <div class="wrapper">
-            <div class="spacer">
-                <div class="card">
-                    <div class="post-data">
-                        <div class="post-data__main">
-                            <div class="post-data__flags">
-                                <div class="post-data-flags__base">
-                                    <img src="${sanitizeHtml(countryFlag)}" alt="">
-                                </div>
-                                ${getOtherCountryFlag(otherCountryFlag)}
-                            </div>
-                            <div class="post-data__title heading">${sanitizeHtml(header)}</div>
-                        </div>
-                        <!-- <div class="post-data__photo">${getImage(image)}</div> -->
+        <div class="top-border"></div>
+        <div class="spacer">
+            <div class="card">
+                <div class="post-data">
+                    <div class="post-data__main">
+                        <div class="post-data__title heading">${emojify(sanitizeHtml(header))}</div>
                     </div>
-                    <div class="footer">
-                        <div class="footer__logo"><img src="https://covidcrossborders.com/wp-content/themes/covidcrossborders/assets/images/covidcrossborders.com-logo.png" alt=""></div>
+                    <div class="post-data__photo">${getImage(image)}</div>
+                </div>
+                <div class="footer">
+                    <div class="footer__logo">
+                        <img src="https://slavclub.ru/wp-content/themes/slavclub/images/slavclub-logo.png" alt="">
+                        <div class="footer__label">Развивающий досуг для детей</div>
                     </div>
                 </div>
             </div>
-            <div class="country-bg" style="background-image: url('${sanitizeHtml(image)}')"></div>
         </div>
     </body>
 </html>`;
@@ -254,19 +205,4 @@ function getImage(src: string, width = 'auto', height = '225') {
         width="${sanitizeHtml(width)}"
         height="${sanitizeHtml(height)}"
     />`
-}
-
-function getOtherCountryFlag(otherCountryFlag: string|null = null) {
-    if(otherCountryFlag === null || otherCountryFlag == '') {
-        return ''
-    }
-
-    return `<div class="post-data-flags__separator">${getArrowImg()}</div>
-    <div class="post-data-flags__other-country">
-        <img src="${sanitizeHtml(otherCountryFlag)}" alt="Generated Image">
-    </div>`
-}
-
-function getArrowImg() {
-    return `<img src="data:image/png;base64,${arrowImg}" alt="->">`
 }
