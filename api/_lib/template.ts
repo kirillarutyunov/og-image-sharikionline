@@ -183,7 +183,9 @@ export function getHtml(parsedReq: ParsedRequest) {
                     <div class="post-data__main">
                         <div class="post-data__title heading">${emojify(sanitizeHtml(header))}</div>
                     </div>
-                    ${image ? `<div class="post-data__photo">${getImage(image)}</div>` : ''}
+                    <div class="post-data__photo">${
+                        image ? `${getImage(image)}` : ''
+                    }</div>
                 </div>
                 <div class="footer">
                     <div class="footer__logo">
