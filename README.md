@@ -1,9 +1,9 @@
 Description
 ===
 
-This repo is a fork of original `Open Graph Image as a Service` repository made for [slavclub.ru](https://slavclub.ru) website.
+This repo is a fork of original `Open Graph Image as a Service` repository made for [https://sharikionline.com/](https://sharikionline.com) website.
 
-![Example of slavclub-ru-og-image](https://github.com/kirillarutyunov/og-image-sclub/blob/master/example/slavclub.ru-og-image-example.png?raw=true)
+![Example of sharikionline-com-og-image](https://github.com/kirillarutyunov/og-image-sharikionline/blob/master/example/sharikionline.com-og-image-example.png?raw=true)
 An example of current repository og-image service
 
 ---

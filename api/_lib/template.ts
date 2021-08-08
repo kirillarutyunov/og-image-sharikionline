@@ -7,31 +7,47 @@ const twemoji = require('twemoji');
 const twOptions = { folder: 'svg', ext: '.svg' };
 const emojify = (text: string) => twemoji.parse(text, twOptions);
 
-const robotoSlabRegular = readFileSync(`${__dirname}/../_fonts/RobotoSlab-Regular.woff2`).toString('base64');
-const robotoSlabBold = readFileSync(`${__dirname}/../_fonts/RobotoSlab-Bold.woff2`).toString('base64');
-const robotoSlabMedium = readFileSync(`${__dirname}/../_fonts/RobotoSlab-Medium.woff2`).toString('base64');
+const montserratBlack = readFileSync(`${__dirname}/../_fonts/Montserrat-Black.woff2`).toString('base64');
+const montserratBold = readFileSync(`${__dirname}/../_fonts/Montserrat-Bold.woff2`).toString('base64');
+const montserratMedium = readFileSync(`${__dirname}/../_fonts/Montserrat-Medium.woff2`).toString('base64');
+const montserratRegular = readFileSync(`${__dirname}/../_fonts/Montserrat-Regular.woff2`).toString('base64');
+const montserratSemiBold = readFileSync(`${__dirname}/../_fonts/Montserrat-SemiBold.woff2`).toString('base64');
 
 function getCss() {
     return `
     @font-face {
-        font-family: 'Roboto Slab';
+        font-family: 'Montserrat';
         font-style:  normal;
-        font-weight: normal;
-        src: url(data:font/woff2;charset=utf-8;base64,${robotoSlabRegular}) format('woff2');
+        font-weight: black;
+        src: url(data:font/woff2;charset=utf-8;base64,${montserratBlack}) format('woff2');
     }
 
     @font-face {
-        font-family: 'Roboto Slab';
+        font-family: 'Montserrat';
         font-style:  normal;
         font-weight: bold;
-        src: url(data:font/woff2;charset=utf-8;base64,${robotoSlabBold}) format('woff2');
+        src: url(data:font/woff2;charset=utf-8;base64,${montserratBold}) format('woff2');
     }
     
     @font-face {
-        font-family: 'Roboto Slab';
+        font-family: 'Montserrat';
         font-style:  normal;
         font-weight: medium;
-        src: url(data:font/woff2;charset=utf-8;base64,${robotoSlabMedium}) format('woff2');
+        src: url(data:font/woff2;charset=utf-8;base64,${montserratMedium}) format('woff2');
+    }
+    
+    @font-face {
+        font-family: 'Montserrat';
+        font-style:  normal;
+        font-weight: normal;
+        src: url(data:font/woff2;charset=utf-8;base64,${montserratRegular}) format('woff2');
+    }
+    
+    @font-face {
+        font-family: 'Montserrat';
+        font-style:  normal;
+        font-weight: semi-bold;
+        src: url(data:font/woff2;charset=utf-8;base64,${montserratSemiBold}) format('woff2');
     }
 
     body {
@@ -41,7 +57,6 @@ function getCss() {
         justify-content: center;
         padding: 0;
         margin: 0;
-        background: #FFECE6;
     }
     
     .footer {
@@ -60,7 +75,7 @@ function getCss() {
     
     .footer__label {
         font-size: 50px;
-        font-family: 'Roboto Slab';
+        font-family: 'Montserrat';
         font-weight: medium;
         color: #1C3E40;
     }
@@ -88,13 +103,14 @@ function getCss() {
     }
     
     .post-data__photo {
-        width: 35%;
-        flex: 0 0 35%;
+        width: 520px;
+        flex: 0 0 470px;
         text-align: right;
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        height: 470px;
+        height: 520px;
+        width: 520px;
     }
     
     .wrapper {
@@ -142,20 +158,24 @@ function getCss() {
     }
     
     .heading {
-        color: #EA6F3A;
-        font-family: 'Roboto Slab';
+        font-family: 'Montserrat';
         font-weight: bold;
         font-size: 90px;
-        line-height: 1.2;
+        line-height: 1.1;
     }
     
     .top-border {
         width: 100%;
         height: 30px;
-        background: #C75727;
+        background: #dd6098;
         position: absolute;
         top: 0;
         left: 0;
+    }
+    
+    .post-data__emojis {
+        font-size: 94px;
+        margin-bottom: 30px;
     }
     `;
 }
@@ -176,6 +196,7 @@ export function getHtml(parsedReq: ParsedRequest) {
             <div class="card">
                 <div class="post-data">
                     <div class="post-data__main">
+                        <div class="post-data__emojis">${emojify(`🔵&thinsp;🟣&thinsp;🟡`)}</div>
                         <div class="post-data__title heading">${emojify(sanitizeHtml(header))}</div>
                     </div>
                     <div class="post-data__photo">${
@@ -184,8 +205,8 @@ export function getHtml(parsedReq: ParsedRequest) {
                 </div>
                 <div class="footer">
                     <div class="footer__logo">
-                        <img src="https://slavclub.ru/wp-content/themes/slavclub/images/slavclub-logo.png" alt="">
-                        <div class="footer__label">Развивающий досуг для детей</div>
+                        <img src="https://sharikionline.com/wp-content/themes/sharikionline/assets/images/sharikionline.com-logo.png" alt="">
+                        <div class="footer__label">Игры шарики онлайн!</div>
                     </div>
                 </div>
             </div>
